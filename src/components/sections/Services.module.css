@@ -1,0 +1,189 @@
+/* The showpiece section: giant names on the green ground, one photograph beside them. */
+.services {
+  background: var(--forest);
+  color: #fff;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 33%, 470px);
+  grid-template-areas:
+    "head head"
+    "list panel";
+  column-gap: clamp(32px, 5vw, 88px);
+  row-gap: clamp(18px, 3.4vh, 40px);
+}
+
+.head {
+  grid-area: head;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 32px;
+}
+
+.title {
+  font-family: var(--font-grotesque), var(--font-text), sans-serif;
+  font-size: clamp(24px, 2.3vw, 34px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+}
+
+.lead {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.list {
+  grid-area: list;
+  align-self: start;
+  border-bottom: 1px solid var(--line-light);
+}
+
+.item {
+  position: relative;
+  border-top: 1px solid var(--line-light);
+}
+
+/* the line under the chosen name: it runs while the section plays by itself */
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 1;
+  height: 2px;
+  background: var(--turf);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* the size follows the screen's width and its height, so four names always fit one screen */
+.name {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  padding: clamp(6px, 1.3vh, 14px) 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  font-family: var(--font-grotesque), var(--font-text), sans-serif;
+  font-size: clamp(42px, min(7.4vw, 13.2vh), 128px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.042em;
+  text-align: left;
+  cursor: pointer;
+}
+
+.name:focus-visible {
+  outline-offset: -2px;
+}
+
+.num {
+  font-family: var(--font-text), sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* the row the name rises out of; the extra room keeps descenders from being cut */
+.mask {
+  display: block;
+  overflow: hidden;
+  padding: 0.04em 0 0.16em;
+  margin-bottom: -0.08em;
+}
+
+.word {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* a second copy of the name in the turf green, which fills upwards when its service is chosen */
+.word::after {
+  content: attr(data-text);
+  content: attr(data-text) / "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--turf);
+  clip-path: inset(125% -0.1em -0.25em -0.1em);
+  transition: clip-path 520ms var(--ease-out);
+}
+
+.item[data-active] .word::after {
+  clip-path: inset(-0.1em -0.1em -0.25em -0.1em);
+}
+
+.panel {
+  grid-area: panel;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: clamp(14px, 2.2vh, 22px);
+}
+
+.frame {
+  position: relative;
+  min-height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--forest-deep);
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.layer[data-first] {
+  visibility: visible;
+}
+
+.layer img {
+  object-fit: cover;
+}
+
+/* three lines are kept free, so the list does not jump when the description changes */
+.text {
+  min-height: 4.5em;
+  font-size: 18px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  animation: fade-up 450ms var(--ease-out) both;
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "head"
+      "list"
+      "panel";
+    row-gap: 24px;
+  }
+
+  .name {
+    grid-template-columns: 1.8rem minmax(0, 1fr);
+    padding-block: 10px;
+    font-size: clamp(38px, 11.4vw, 84px);
+  }
+
+  .frame {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+
+  .text {
+    min-height: 6em;
+  }
+}

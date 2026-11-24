@@ -1,0 +1,99 @@
+.root {
+  display: none;
+}
+
+.toggle {
+  position: relative;
+  z-index: 31;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.bars {
+  position: relative;
+  width: 16px;
+  height: 8px;
+}
+
+.bars::before,
+.bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 200ms var(--ease-out);
+}
+
+.bars::before {
+  top: 0;
+}
+
+.bars::after {
+  bottom: 0;
+}
+
+.bars[data-open="true"]::before {
+  transform: translateY(3.25px) rotate(45deg);
+}
+
+.bars[data-open="true"]::after {
+  transform: translateY(-3.25px) rotate(-45deg);
+}
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 112px var(--gutter) 32px;
+  background: var(--forest-deep);
+  color: var(--stone);
+  overflow-y: auto;
+}
+
+.sheet[hidden] {
+  display: none;
+}
+
+.links {
+  display: grid;
+}
+
+.links a {
+  display: block;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-light);
+  font-size: 30px;
+  letter-spacing: -0.02em;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  border-radius: 999px;
+  background: var(--turf);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .root {
+    display: block;
+  }
+}

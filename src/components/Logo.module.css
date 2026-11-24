@@ -1,0 +1,29 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+
+.mark {
+  display: block;
+  width: auto;
+  height: 46px;
+}
+
+.name {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .mark {
+    height: 40px;
+  }
+
+  .name {
+    font-size: 17px;
+  }
+}

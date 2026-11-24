@@ -1,0 +1,122 @@
+/* The moving section: a row of site photographs that slides sideways while the page scrolls. */
+.sites {
+  --photo-h: clamp(240px, calc(100svh - var(--header-h) - 340px), 540px);
+  background: var(--paper-deep);
+  overflow: clip;
+}
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(20px, 5vw, 96px);
+  align-items: end;
+}
+
+.lead {
+  justify-self: end;
+  color: var(--ink-soft);
+}
+
+/* how far along the row the page is */
+.rail {
+  position: relative;
+  height: 2px;
+  margin-top: clamp(18px, 3.2vh, 36px);
+  background: var(--line-dark);
+}
+
+.bar {
+  position: absolute;
+  inset: 0;
+  background: var(--turf-deep);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.view {
+  margin-top: clamp(18px, 3.2vh, 36px);
+}
+
+.track {
+  display: flex;
+  gap: clamp(14px, 1.8vw, 26px);
+  width: max-content;
+  will-change: transform;
+}
+
+.item {
+  flex: none;
+  margin: 0;
+}
+
+.frame {
+  position: relative;
+  height: var(--photo-h);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.frame img {
+  object-fit: cover;
+  will-change: transform;
+}
+
+.caption {
+  display: grid;
+  gap: 2px;
+  margin-top: 14px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.text {
+  color: var(--ink-soft);
+}
+
+/* on a phone, or with reduced motion, the row is swiped by hand */
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .sites {
+    --photo-h: clamp(210px, 58vw, 400px);
+  }
+
+  .rail {
+    display: none;
+  }
+
+  .view {
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+
+  .view::-webkit-scrollbar {
+    display: none;
+  }
+
+  .item {
+    scroll-snap-align: start;
+  }
+
+  /* a narrow photograph may not be wider than the phone's screen */
+  .frame {
+    max-width: 84vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lead {
+    justify-self: start;
+  }
+}

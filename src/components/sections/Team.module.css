@@ -1,0 +1,102 @@
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: clamp(20px, 5vw, 96px);
+  align-items: end;
+}
+
+.lead {
+  justify-self: end;
+  color: var(--ink-soft);
+}
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  margin-top: clamp(24px, 4.6vh, 60px);
+}
+
+.portrait {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  /* shorter on a low screen, so the row of four still fits one screen */
+  max-height: max(200px, calc(100svh - 524px));
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--paper-deep);
+}
+
+.portrait img {
+  object-fit: cover;
+}
+
+.about {
+  margin-top: clamp(12px, 1.8vh, 18px);
+}
+
+.name {
+  font-family: var(--font-grotesque), var(--font-text), sans-serif;
+  font-size: clamp(20px, 1.7vw, 24px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.role {
+  margin-top: 4px;
+  font-weight: 500;
+  color: var(--turf-deep);
+}
+
+.text {
+  max-width: 34ch;
+  margin-top: 8px;
+  color: var(--ink-soft);
+}
+
+/* below desktop width each person is a row: a small portrait beside the words */
+@media (max-width: 900px) {
+  .head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lead {
+    justify-self: start;
+  }
+
+  .people {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+    row-gap: 0;
+  }
+
+  .portrait {
+    max-height: none;
+  }
+
+  .person {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+    padding-block: 22px;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .about {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .people {
+    grid-template-columns: minmax(0, 1fr);
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .person {
+    grid-template-columns: 104px minmax(0, 1fr);
+  }
+}

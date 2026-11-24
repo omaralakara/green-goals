@@ -1,0 +1,62 @@
+/* Who the company is: one large sentence on the left, four numbers on the right. */
+.about {
+  background: var(--paper);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 13fr) minmax(0, 11fr);
+  gap: clamp(32px, 6vw, 104px);
+  align-items: center;
+}
+
+.statement {
+  font-family: var(--font-grotesque), var(--font-text), sans-serif;
+  font-size: clamp(30px, min(3.6vw, 6.4vh), 58px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+}
+
+.figures {
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.figure {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: baseline;
+  gap: 20px;
+  padding-block: clamp(12px, 2.4vh, 24px);
+  border-top: 1px solid var(--line-dark);
+}
+
+/* tabular figures, so the numbers do not jiggle while they count */
+.value {
+  font-family: var(--font-grotesque), var(--font-text), sans-serif;
+  font-size: clamp(38px, min(4.2vw, 7.4vh), 70px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--turf-deep);
+  white-space: nowrap;
+}
+
+.label {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+}
+
+@media (max-width: 560px) {
+  .figure {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+}
