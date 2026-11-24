@@ -55,11 +55,25 @@ export default function Hero() {
   const bars = useRef<(HTMLSpanElement | null)[]>([]);
   const ring = useRef<SVGRectElement>(null);
   const shown = useRef(0);
-  const depth = useRef(1);
+  const wipeEnd = useRef(0); // when the wipe now running is over
   const timer = useRef<gsap.core.Timeline | null>(null);
   const still = useRef(false); // the visitor asked for reduced motion
   const held = useRef(false); // the pointer is on the project row
   const inView = useRef(true);
+
+  // Get a photograph ready shortly before it comes in. A photograph that sits under another one is not kept
+  // painted by the browser, so the first frame of a change had to wait for it to be decoded and painted: that was
+  // the stutter. Here it is put on top, almost fully transparent (1%, which cannot be seen), so the browser paints
+  // it now, while nothing is moving.
+  function warm(i: number) {
+    const layer = layers.current[i];
+    if (!layer || i === shown.current || still.current || performance.now() < wipeEnd.current) return;
+    const img = layer.querySelector("img");
+    if (!img) return;
+    img.decode().catch(() => {});
+    img.style.opacity = "0.01";
+    layer.style.zIndex = "4";
+  }
 
   // The line on a project's tab: it fills while that project is on show and brings the next one when it is full.
   function hold(i: number) {
@@ -72,7 +86,8 @@ export default function Hero() {
     timer.current = gsap
       .timeline({ paused: !inView.current, onComplete: () => show((i + 1) % slides.length) })
       .to(bars.current[i], { scaleX: 1, duration: HOLD, ease: "none" }, 0)
-      .to(ring.current, { strokeDashoffset: 0, duration: HOLD, ease: "none" }, 0);
+      .to(ring.current, { strokeDashoffset: 0, duration: HOLD, ease: "none" }, 0)
+      .call(warm, [(i + 1) % slides.length], HOLD - 0.8);
   }
 
   function show(next: number) {
@@ -83,24 +98,24 @@ export default function Hero() {
     const incoming = layers.current[next];
     if (!incoming) return;
     const fromRight = next > shown.current;
+    const outgoing = layers.current[shown.current];
     shown.current = next;
     setActive(next);
 
     const slide = incoming.firstElementChild;
     const photo = slide?.firstElementChild ?? null;
-    depth.current += 1;
     gsap.killTweensOf([incoming, slide, photo]);
-    gsap.set(incoming, { zIndex: depth.current, visibility: "visible" });
-
-    const hideOthers = () => {
-      layers.current.forEach((layer) => {
-        if (layer && layer !== incoming) gsap.set(layer, { visibility: "hidden" });
-      });
-    };
+    // All three photographs stay drawn, one above the other, so nothing has to be painted when one comes in:
+    // the new one goes on top, the one it covers stays right under it.
+    layers.current.forEach((layer) => {
+      if (!layer) return;
+      layer.style.zIndex = layer === incoming ? "3" : layer === outgoing ? "2" : "1";
+      const img = layer.querySelector("img");
+      if (img) img.style.opacity = "";
+    });
 
     if (still.current) {
       gsap.set([incoming, slide], { xPercent: 0 });
-      hideOthers();
       hold(next);
       return;
     }
@@ -109,7 +124,8 @@ export default function Hero() {
     // The wipe is two moves that cancel out: the frame slides in while the photograph inside it slides back,
     // so the photograph stays put and only its edge travels. Moving layers is much cheaper than redrawing a clip.
     const from = fromRight ? 100 : -100;
-    gsap.fromTo(incoming, { xPercent: from }, { xPercent: 0, duration: 1.05, ease: "expo.inOut", onComplete: hideOthers });
+    wipeEnd.current = performance.now() + 1100;
+    gsap.fromTo(incoming, { xPercent: from }, { xPercent: 0, duration: 1.05, ease: "expo.inOut" });
     gsap.fromTo(slide, { xPercent: -from }, { xPercent: 0, duration: 1.05, ease: "expo.inOut" });
     gsap.fromTo(photo, { scale: 1.16 }, { scale: 1.03, duration: HOLD + 2.5, ease: "power2.out" });
     hold(next);
@@ -215,6 +231,8 @@ export default function Hero() {
             className={styles.next}
             type="button"
             aria-label={`Show the next project: ${slides[next].name}`}
+            onPointerEnter={() => warm((shown.current + 1) % slides.length)}
+            onFocus={() => warm((shown.current + 1) % slides.length)}
             onClick={() => show((shown.current + 1) % slides.length)}
           >
             <span className={styles.nextFrame}>
@@ -258,6 +276,8 @@ export default function Hero() {
             className={styles.tab}
             type="button"
             aria-pressed={i === active}
+            onPointerEnter={() => warm(i)}
+            onFocus={() => warm(i)}
             onClick={() => show(i)}
           >
             <span

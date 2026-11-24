@@ -18,43 +18,48 @@
   z-index: -1;
 }
 
+/* The three photographs are always drawn, stacked: the one on show is on top. A hidden photograph would have
+   to be decoded and painted at the moment it comes in, which is what made the change stutter. */
 .layer {
   position: absolute;
   inset: 0;
-  visibility: hidden;
+  z-index: 1;
   overflow: hidden;
+  will-change: transform;
 }
 
 .layer[data-first] {
-  visibility: visible;
+  z-index: 3;
 }
 
 .slide {
   position: absolute;
   inset: 0;
-}
-
-.photo {
-  object-fit: cover;
   will-change: transform;
 }
 
-/* the photograph starts slightly large and drifts back; the script keeps it moving */
-.layer[data-first] .photo {
+/* Every photograph starts slightly large and drifts back; the script keeps it moving. All three are this size
+   from the start, so the browser paints each one once at its largest and never has to repaint it mid-change. */
+.photo {
+  object-fit: cover;
   transform: scale(1.16);
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .layer[data-first] .photo {
+  .photo {
     transform: none;
   }
 }
 
-/* keeps the header and the headline readable on any of the three photographs */
+/* Keeps the header and the headline readable on any of the three photographs. It has a layer of its own:
+   otherwise the browser paints it together with the words and buttons above it, and repaints these full-screen
+   gradients every time a tab or the next-project pill changes. */
 .shade {
   position: absolute;
   inset: 0;
   z-index: 1000;
+  will-change: transform;
   background:
     linear-gradient(to bottom, rgba(8, 16, 11, 0.66) 0%, rgba(8, 16, 11, 0) 24%),
     linear-gradient(to right, rgba(8, 16, 11, 0.5) 0%, rgba(8, 16, 11, 0.22) 45%, rgba(8, 16, 11, 0) 78%),
@@ -158,6 +163,8 @@
   color: #fff;
   text-align: left;
   cursor: pointer;
+  /* its own layer: the project name changing repaints only this, not the headline beside it */
+  will-change: transform;
 }
 
 .nextFrame {
@@ -168,6 +175,8 @@
   border-radius: 999px;
   overflow: hidden;
   transition: transform 200ms var(--ease-out);
+  /* its own layer: the preview wiping in repaints only this pill */
+  will-change: transform;
 }
 
 .next:hover .nextFrame {
@@ -203,6 +212,7 @@
   width: 100%;
   height: 100%;
   fill: none;
+  will-change: transform;
 }
 
 .ringTrack {
@@ -243,6 +253,8 @@
   padding-inline: var(--gutter);
   border-top: 1px solid var(--line-light);
   animation: fade-up 700ms var(--ease-out) 640ms both;
+  /* its own layer: a tab lighting up repaints only this row */
+  will-change: transform;
 }
 
 .tab {
@@ -275,6 +287,7 @@
   background: var(--turf);
   transform: scaleX(0);
   transform-origin: left;
+  will-change: transform;
 }
 
 .tab:hover,
@@ -290,7 +303,6 @@
   border-radius: 8px;
   overflow: hidden;
   opacity: 0.75;
-  transition: opacity 150ms var(--ease-out);
 }
 
 .thumb img {
