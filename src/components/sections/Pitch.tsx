@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Rise from "@/components/Rise";
-import { mainAction } from "@/lib/site";
 import styles from "./Pitch.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -28,9 +27,11 @@ const strips = Array.from({ length: STRIPS }, (_, i) => i);
 /** when each step begins on the scene's clock, in seconds */
 const AT = { pad: 0, grass: 1.1, infill: 4.3, lines: 5.45, ball: 7 };
 
-// The scene section. On a desktop the section stays in place while the page scrolls and the pitch is laid:
+// The scene section. When the section comes on screen the scene plays by itself, so a visitor who stops
+// scrolling never looks at a half-laid pitch:
 // the shock pad slides on, seven rolls of grass unroll, a brush works the infill in and the white lines are
-// drawn. It ends on the finished pitch, with the ball on the centre spot. On a phone the same scene plays once when it comes on screen. The drawing is
+// drawn. It ends on the finished pitch, with the ball on the centre spot. Scrolling back above the section
+// resets it, so it plays again on the way down. The drawing is
 // written in its finished state, so without the script (or with reduced motion) the finished pitch is shown.
 export default function Pitch() {
   const [step, setStep] = useState(0);
@@ -104,24 +105,13 @@ export default function Pitch() {
       };
 
       const mm = gsap.matchMedia();
-      mm.add("(min-width: 901px) and (prefers-reduced-motion: no-preference)", () => {
-        const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 68;
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
         ScrollTrigger.create({
-          animation: build(),
-          trigger: root.current,
-          start: `top ${header}px`,
-          end: "+=200%",
-          pin: true,
-          scrub: 0.3,
-          anticipatePin: 1,
-        });
-      });
-      mm.add("(max-width: 900px) and (prefers-reduced-motion: no-preference)", () => {
-        ScrollTrigger.create({
-          animation: build(),
+          animation: build().timeScale(1.3),
           trigger: scene.current,
-          start: "top 72%",
-          toggleActions: "play none none none",
+          start: "top 62%",
+          // play on the way down; leaving back over the top resets it for the next visit
+          toggleActions: "play none none reset",
         });
       });
     },
@@ -150,9 +140,6 @@ export default function Pitch() {
             ))}
           </ol>
 
-          <a className={`button ${styles.action}`} href={mainAction.href}>
-            {mainAction.label}
-          </a>
         </div>
 
         <div ref={scene} className={styles.scene}>

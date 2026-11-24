@@ -24,7 +24,7 @@ export default function Projects() {
               <tr>
                 <th scope="col">Project</th>
                 <th scope="col">What we did</th>
-                <th scope="col">Our role</th>
+                <th scope="col">Main contractor</th>
               </tr>
             </thead>
             <tbody>

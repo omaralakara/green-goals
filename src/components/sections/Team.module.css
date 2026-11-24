@@ -21,11 +21,52 @@
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
-  /* shorter on a low screen, so the row of four still fits one screen */
-  max-height: max(200px, calc(100svh - 524px));
   border-radius: 8px;
   overflow: hidden;
   background: var(--paper-deep);
+}
+
+/* Four columns: the photographs share one row and the words the next, so all four photographs are one height. */
+@media (min-width: 901px) {
+  .people {
+    grid-template-rows: auto auto;
+    row-gap: 0;
+  }
+
+  .person {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+  }
+}
+
+/* On a desktop screen the section is exactly one screen, and the photographs take all the height the heading
+   and the words leave: 4 to 5 on a tall screen, shorter on a low one, never under 180px. */
+@media (min-width: 1025px) and (min-height: 620px) {
+  .team {
+    height: min(calc(100svh - var(--header-h)), 1000px);
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+    min-height: 0;
+  }
+
+  .head {
+    flex: none;
+  }
+
+  .people {
+    flex: 0 1 auto;
+    min-height: 0;
+    grid-template-rows: minmax(180px, 1fr) auto;
+  }
+
+  .portrait {
+    max-height: 100%;
+  }
 }
 
 .portrait img {
@@ -37,7 +78,6 @@
 }
 
 .name {
-  font-family: var(--font-grotesque), var(--font-text), sans-serif;
   font-size: clamp(20px, 1.7vw, 24px);
   font-weight: 600;
   line-height: 1.15;
@@ -70,10 +110,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 32px;
     row-gap: 0;
-  }
-
-  .portrait {
-    max-height: none;
   }
 
   .person {

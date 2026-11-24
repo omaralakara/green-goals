@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Logo from "@/components/Logo";
 import MobileMenu from "@/components/MobileMenu";
-import { mainAction, navLinks } from "@/lib/site";
+import { contactAction, navLinks } from "@/lib/site";
 import styles from "./Header.module.css";
 
 // Clear over the hero photograph, then a solid green bar once the page has scrolled.
@@ -36,8 +36,8 @@ export default function Header() {
               ))}
             </ul>
           </nav>
-          <a className={styles.action} href={mainAction.href}>
-            {mainAction.label}
+          <a className={styles.action} href={contactAction.href}>
+            {contactAction.label}
           </a>
           <MobileMenu />
         </div>

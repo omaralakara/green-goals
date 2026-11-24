@@ -24,7 +24,6 @@
 }
 
 .title {
-  font-family: var(--font-grotesque), var(--font-text), sans-serif;
   font-size: clamp(24px, 2.3vw, 34px);
   font-weight: 600;
   line-height: 1.12;
@@ -71,11 +70,10 @@
   border: 0;
   background: none;
   color: #fff;
-  font-family: var(--font-grotesque), var(--font-text), sans-serif;
-  font-size: clamp(42px, min(7.4vw, 13.2vh), 128px);
-  font-weight: 600;
+  font-size: clamp(40px, min(6.3vw, 12.6vh), 112px);
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.042em;
+  letter-spacing: -0.034em;
   text-align: left;
   cursor: pointer;
 }
@@ -175,7 +173,7 @@
   .name {
     grid-template-columns: 1.8rem minmax(0, 1fr);
     padding-block: 10px;
-    font-size: clamp(38px, 11.4vw, 84px);
+    font-size: clamp(34px, 10vw, 76px);
   }
 
   .frame {

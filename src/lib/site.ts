@@ -11,25 +11,30 @@ export const company = {
 };
 
 export const navLinks = [
+  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
   { label: "Artificial grass", href: "#turf" },
   { label: "Team", href: "#team" },
-  { label: "Contact", href: "#contact" },
 ];
 
-export const mainAction = { label: "Request a quote", href: "#contact" };
-export const secondAction = { label: "See our projects", href: "#projects" };
+// The button in the header.
+export const contactAction = { label: "Contact us", href: "#contact" };
+// The button in the hero.
+export const projectsAction = { label: "See our projects", href: "#projects" };
+// The name of the form at the foot of the page, and of its button. It is used nowhere else.
+export const quoteAction = { label: "Request a quote", href: "#contact" };
 
-// Every project in the table, in the order shown.
+// Every project in the table, in the order shown. Each row is a slide of the company profile on green-goals.com:
+// the project, the scope of work and the main contractor are taken from that slide.
 export const projects = [
-  { name: "Doha Port Marina", work: "Structural BIM for the marina and container park", role: "With Al Jaber" },
-  { name: "Waldorf Astoria, West Bay", work: "Aluminium mashrabiya, drainage and paint repairs", role: "With Harinsa" },
-  { name: "Doha Metro, Gold Line", work: "Structural steel for the lifts at seven stations", role: "With Imar" },
-  { name: "Qetaifan Island North", work: "Roof steelwork and aluminium details", role: "With Al Jaber" },
-  { name: "PPP Schools, Package 1", work: "FIFA-quality turf, Carrara granite and landscaping", role: "With Al Jaber" },
-  { name: "Birkat Al Awamer", work: "Warehouse design, steel structure and fireproofing", role: "Main contractor" },
-  { name: "Private villas, Al Mashaf", work: "Design and build, with the interiors and MEP", role: "Main contractor" },
+  { name: "Doha Port Marina", work: "Structural BIM for the marina and container park", role: "Al Jaber" },
+  { name: "Waldorf Astoria, West Bay", work: "Aluminium mashrabiya, drainage and paint repairs", role: "Harinsa" },
+  { name: "Doha Metro, Gold Line", work: "Structural steel for the lifts at seven stations", role: "Imar" },
+  { name: "Qetaifan Island North", work: "Roof steelwork and aluminium details", role: "Al Jaber" },
+  { name: "PPP Schools, Package 1", work: "FIFA-quality turf, Carrara granite and landscaping", role: "Al Jaber" },
+  { name: "Birkat Al Awamer", work: "Warehouse design, steel structure and fireproofing", role: "Green Goals" },
+  { name: "Private villa, Al Mashaf", work: "Design and build, with the interiors and MEP", role: "Green Goals" },
 ];
 
 export const offices = [

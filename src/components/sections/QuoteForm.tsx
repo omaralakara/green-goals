@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { company, mainAction } from "@/lib/site";
+import { company, quoteAction } from "@/lib/site";
 import styles from "./QuoteForm.module.css";
 
 type Field = "name" | "email" | "company" | "location" | "brief";
@@ -103,7 +103,7 @@ export default function QuoteForm() {
 
       <div className={`${styles.send} ${styles.full}`}>
         <button className={`button ${styles.submit}`} type="submit">
-          {mainAction.label}
+          {quoteAction.label}
         </button>
         <p className={styles.note} role="status">
           {sent

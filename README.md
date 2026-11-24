@@ -25,15 +25,25 @@ npm run dev        # http://localhost:3000
 | `src/components/sections/About.tsx` | One sentence that lights up word by word on scroll, and four numbers that count up |
 | `src/components/sections/Services.tsx` | Four giant names. The section plays through them by itself; pointing at one chooses it |
 | `src/components/sections/Sites.tsx` | The row of site photographs that slides sideways while the page scrolls (swiped on a phone) |
-| `src/components/sections/Pitch.tsx` | The artificial grass scene: a pitch drawn in SVG that is laid as the page scrolls (shock pad, grass rolls, infill, lines), ending on the finished pitch. The timings are in `AT` |
+| `src/components/sections/Pitch.tsx` | The artificial grass scene: a pitch drawn in SVG that is laid by itself when the section comes on screen (shock pad, grass rolls, infill, lines), ending on the finished pitch. The timings are in `AT` |
 | `src/components/sections/` | Also `Projects`, `Team`, `Contact` and its `QuoteForm` |
 | `src/components/Footer.tsx`, `Logo.tsx`, `MobileMenu.tsx` | Footer, logo and the menu shown below 1024px |
-| `src/assets/` | The logo, fourteen photographs and four portraits |
+| `src/assets/` | The logo, fourteen photographs, four portraits and the Synergi logo for the footer credit |
 | `scripts/shot.mjs` | Headless-Chrome screenshot helper used while reviewing. Not part of the site |
 
 On a desktop screen every section is one screen tall (the rule is in `globals.css`, under `.section`); on a
 phone the sections are as tall as their content. All motion is GSAP and is switched off for visitors who ask their
 system for reduced motion.
+
+## Typeface
+
+One typeface for the whole site, headings and text: IBM Plex Sans, loaded in `src/app/layout.tsx`.
+
+## Where the facts come from
+
+Every project row in `src/lib/site.ts` is a slide of the company profile published on green-goals.com: the project,
+the scope of work and the main contractor are taken from that slide. The figures in the About section and the team
+lines are from the same site.
 
 ## Before it goes live
 

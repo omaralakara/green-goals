@@ -71,11 +71,10 @@
 }
 
 .title {
-  font-family: var(--font-grotesque), var(--font-text), sans-serif;
-  font-size: clamp(42px, 7.2vw, 116px);
-  font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: -0.035em;
+  font-size: clamp(38px, 6.4vw, 104px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 

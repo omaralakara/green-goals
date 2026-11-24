@@ -48,7 +48,7 @@ const people: Person[] = [
 export default function Team() {
   return (
     <section className={`section ${styles.team}`} id="team" aria-labelledby="team-title">
-      <div className="wrap">
+      <div className={`wrap ${styles.inner}`}>
         <div className={styles.head}>
           <Rise id="team-title">The people who run your project</Rise>
           <p className={`lead ${styles.lead}`}>

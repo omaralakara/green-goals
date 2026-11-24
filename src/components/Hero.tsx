@@ -8,7 +8,7 @@ import { useGSAP } from "@gsap/react";
 import turf from "@/assets/ppp-schools-pitch.jpg";
 import metro from "@/assets/doha-metro.jpg";
 import pergola from "@/assets/qetaifan-pergola.jpg";
-import { mainAction, secondAction } from "@/lib/site";
+import { projectsAction } from "@/lib/site";
 import styles from "./Hero.module.css";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -208,11 +208,8 @@ export default function Hero() {
           landscaping and artificial grass, backed by 25 years in the GCC.
         </p>
         <div className={styles.actions}>
-          <a className={styles.primary} href={mainAction.href}>
-            {mainAction.label}
-          </a>
-          <a className={styles.secondary} href={secondAction.href}>
-            {secondAction.label}
+          <a className={styles.primary} href={projectsAction.href}>
+            {projectsAction.label}
           </a>
           <button
             className={styles.next}

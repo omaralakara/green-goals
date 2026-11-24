@@ -11,11 +11,10 @@
 }
 
 .statement {
-  font-family: var(--font-grotesque), var(--font-text), sans-serif;
-  font-size: clamp(30px, min(3.6vw, 6.4vh), 58px);
+  font-size: clamp(28px, min(3.3vw, 6vh), 54px);
   font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.028em;
+  line-height: 1.14;
+  letter-spacing: -0.024em;
 }
 
 .figures {
@@ -33,9 +32,8 @@
 
 /* tabular figures, so the numbers do not jiggle while they count */
 .value {
-  font-family: var(--font-grotesque), var(--font-text), sans-serif;
-  font-size: clamp(38px, min(4.2vw, 7.4vh), 70px);
-  font-weight: 600;
+  font-size: clamp(36px, min(3.9vw, 7vh), 66px);
+  font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;

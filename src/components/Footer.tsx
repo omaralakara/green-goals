@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Logo from "@/components/Logo";
-import { company, mainAction, navLinks, offices } from "@/lib/site";
+import synergi from "@/assets/synergi-logo-white.png";
+import { company, contactAction, navLinks, offices } from "@/lib/site";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -17,15 +19,13 @@ export default function Footer() {
         <nav className={styles.col} aria-label="Footer">
           <h2 className={styles.h}>On this page</h2>
           <ul>
-            {navLinks
-              .filter((link) => link.href !== mainAction.href)
-              .map((link) => (
-                <li key={link.href}>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
             <li>
-              <a href={mainAction.href}>{mainAction.label}</a>
+              <a href={contactAction.href}>{contactAction.label}</a>
             </li>
           </ul>
         </nav>
@@ -55,7 +55,10 @@ export default function Footer() {
 
         <p className={styles.legal}>
           <span>&copy; 2026 {company.legalName}</span>
-          <a href="#top">Back to top</a>
+          <a className={styles.credit} href="https://synergibpo.com" target="_blank" rel="noopener">
+            <span>Designed by</span>
+            <Image className={styles.creditLogo} src={synergi} alt="Synergi" width={64} height={20} />
+          </a>
         </p>
       </div>
     </footer>
