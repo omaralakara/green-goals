@@ -38,7 +38,7 @@ export const projects = [
 ];
 
 export const offices = [
-  { country: "Qatar", detail: "Doha, head office" },
+  { country: "Qatar", detail: "Doha, Head Office" },
   { country: "Saudi Arabia", detail: "Contracting and BIM" },
   { country: "United Arab Emirates", detail: "Abu Dhabi branch" },
   { country: "Lebanon", detail: "Zgharta, engineering consulting" },

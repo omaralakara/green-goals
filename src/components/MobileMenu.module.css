@@ -81,6 +81,16 @@
   letter-spacing: -0.02em;
 }
 
+/* the language switch above the contact button */
+.foot {
+  display: grid;
+  gap: 16px;
+}
+
+.lang {
+  justify-self: start;
+}
+
 .action {
   display: flex;
   align-items: center;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import LangSwitch from "@/components/LangSwitch";
 import { contactAction, navLinks } from "@/lib/site";
 import styles from "./MobileMenu.module.css";
 
@@ -50,9 +51,12 @@ export default function MobileMenu({ className }: { className?: string }) {
             </li>
           ))}
         </ul>
-        <a className={styles.action} href={contactAction.href} onClick={() => setOpen(false)}>
-          {contactAction.label}
-        </a>
+        <div className={styles.foot}>
+          <LangSwitch className={styles.lang} />
+          <a className={styles.action} href={contactAction.href} onClick={() => setOpen(false)}>
+            {contactAction.label}
+          </a>
+        </div>
       </div>
     </div>
   );
